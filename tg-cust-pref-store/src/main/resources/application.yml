@@ -1,0 +1,29 @@
+server:
+  port: 4377
+  servlet:
+    context-path: /tg-cust-pref-store
+    
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    show-sql: true
+    #generate-ddl: true
+    #database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        format_sql: true
+        #dialect: org.hibernate.dialect.H2Dialect
+        #hbm2ddl.auto: create-drop
+    hibernate:
+      ddl-auto: create
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+        
+    

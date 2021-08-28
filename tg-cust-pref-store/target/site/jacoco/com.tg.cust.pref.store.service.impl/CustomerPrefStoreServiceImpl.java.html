@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CustomerPrefStoreServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tg-cust-pref-store</a> &gt; <a href="index.source.html" class="el_package">com.tg.cust.pref.store.service.impl</a> &gt; <span class="el_source">CustomerPrefStoreServiceImpl.java</span></div><h1>CustomerPrefStoreServiceImpl.java</h1><pre class="source lang-java linenums">package com.tg.cust.pref.store.service.impl;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.tg.cust.pref.store.entity.TgCustomerPreference;
+import com.tg.cust.pref.store.exception.PreferenceNotFoundException;
+import com.tg.cust.pref.store.model.CreateCustomerPrefRequest;
+import com.tg.cust.pref.store.model.CustomerPrefResponse;
+import com.tg.cust.pref.store.model.UpdateCustomerPrefRequest;
+import com.tg.cust.pref.store.repository.CustomerPreferenceRepository;
+import com.tg.cust.pref.store.service.CustomerPrefStoreService;
+
+import lombok.extern.slf4j.Slf4j;
+
+/**
+ * 
+ * @author jasar
+ *
+ */
+<span class="fc" id="L27">@Slf4j</span>
+@Service
+<span class="fc" id="L29">public class CustomerPrefStoreServiceImpl implements CustomerPrefStoreService {</span>
+
+	@Autowired
+	private CustomerPreferenceRepository customerPreferenceRepository;
+
+	@Override
+	public List&lt;CustomerPrefResponse&gt; getCustomerPreferences(Long customerId) {
+
+<span class="fc" id="L37">		List&lt;TgCustomerPreference&gt; preferenceEntityList = customerPreferenceRepository.findByCustomerId(customerId);</span>
+<span class="fc" id="L38">		log.info(&quot;Successfully retrieved preferences from database&quot;);</span>
+
+<span class="fc" id="L40">		return mapPreferenceList(preferenceEntityList);</span>
+	}
+
+	@Override
+	public List&lt;CustomerPrefResponse&gt; createCustomerPreferences(Long customerId,
+			List&lt;CreateCustomerPrefRequest&gt; customerPrefList) {
+
+<span class="fc" id="L47">		List&lt;TgCustomerPreference&gt; custPrefEntityList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L48">		customerPrefList.forEach(customerPref -&gt; {</span>
+<span class="fc" id="L49">			TgCustomerPreference custPrefEntity = TgCustomerPreference.builder().customerId(customerId)</span>
+<span class="fc" id="L50">					.preferenceType(customerPref.getPreferenceType().toLowerCase()).optIn(customerPref.getOptIn()).createdDate(new Date()).build();</span>
+<span class="fc" id="L51">			custPrefEntityList.add(custPrefEntity);</span>
+<span class="fc" id="L52">		});</span>
+
+<span class="fc" id="L54">		List&lt;TgCustomerPreference&gt; savedPreferenceEntityList = customerPreferenceRepository.saveAll(custPrefEntityList);</span>
+<span class="fc" id="L55">		log.info(&quot;Successfully created preferences in database&quot;);</span>
+
+<span class="fc" id="L57">		return mapPreferenceList(savedPreferenceEntityList);</span>
+	}
+
+	private List&lt;CustomerPrefResponse&gt; mapPreferenceList(List&lt;TgCustomerPreference&gt; preferenceEntityList) {
+
+<span class="fc" id="L62">		log.info(&quot;Mapping preference entities to model objects&quot;);</span>
+
+<span class="fc" id="L64">		List&lt;CustomerPrefResponse&gt; customerPrefList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L65">		preferenceEntityList.forEach(preferenceEntity -&gt; {</span>
+<span class="fc" id="L66">			CustomerPrefResponse customerPrefResponse = new CustomerPrefResponse();</span>
+<span class="fc" id="L67">			BeanUtils.copyProperties(preferenceEntity, customerPrefResponse);</span>
+<span class="fc" id="L68">			customerPrefList.add(customerPrefResponse);</span>
+<span class="fc" id="L69">		});</span>
+
+<span class="fc" id="L71">		return customerPrefList;</span>
+	}
+
+	@Override
+	public CustomerPrefResponse getCustomerPreferenceByType(Long customerId, String preferenceType) {
+
+<span class="fc" id="L77">		Optional&lt;TgCustomerPreference&gt; preferenceEntity = customerPreferenceRepository</span>
+<span class="fc" id="L78">				.findByCustomerIdAndPreferenceType(customerId, preferenceType.toLowerCase());</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">		if (preferenceEntity.isPresent()) {</span>
+
+<span class="fc" id="L81">			log.info(&quot;Successfully retrieved preference from database&quot;);</span>
+<span class="fc" id="L82">			return mapPreference(preferenceEntity.get());</span>
+		}
+
+<span class="fc" id="L85">		log.error(&quot;Could not find preference of type - {}, for user - {}&quot;, preferenceType, customerId);</span>
+<span class="fc" id="L86">		throw new PreferenceNotFoundException(&quot;Preference of given type not found&quot;);</span>
+	}
+
+	@Override
+	public CustomerPrefResponse updateCustomerPreference(Long customerId, String preferenceType,
+			UpdateCustomerPrefRequest customerPref) {
+
+<span class="fc" id="L93">		Optional&lt;TgCustomerPreference&gt; optionPreferenceEntity = customerPreferenceRepository</span>
+<span class="fc" id="L94">				.findByCustomerIdAndPreferenceType(customerId, preferenceType.toLowerCase());</span>
+<span class="fc bfc" id="L95" title="All 2 branches covered.">		if (optionPreferenceEntity.isPresent()) {</span>
+<span class="fc" id="L96">			TgCustomerPreference preferenceEntity = optionPreferenceEntity.get();</span>
+<span class="fc" id="L97">			preferenceEntity.setOptIn(customerPref.getOptIn());</span>
+<span class="fc" id="L98">			preferenceEntity.setModifiedDate(new Date());</span>
+<span class="fc" id="L99">			TgCustomerPreference savedPreferenceEntity = customerPreferenceRepository.save(preferenceEntity);</span>
+<span class="fc" id="L100">			log.info(&quot;Successfully updated preference in database&quot;);</span>
+
+<span class="fc" id="L102">			return mapPreference(savedPreferenceEntity);</span>
+		}
+
+<span class="fc" id="L105">		log.error(&quot;Could not find preference of type - {}, for user - {}&quot;, preferenceType, customerId);</span>
+<span class="fc" id="L106">		throw new PreferenceNotFoundException(&quot;Preference of given type not found&quot;);</span>
+	}
+
+	private CustomerPrefResponse mapPreference(TgCustomerPreference preferenceEntity) {
+
+<span class="fc" id="L111">		log.info(&quot;Mapping preference entity to model object&quot;);</span>
+
+<span class="fc" id="L113">		CustomerPrefResponse customerPrefResponse = new CustomerPrefResponse();</span>
+<span class="fc" id="L114">		BeanUtils.copyProperties(preferenceEntity, customerPrefResponse);</span>
+<span class="fc" id="L115">		return customerPrefResponse;</span>
+	}
+
+	@Override
+	public boolean deleteCustomerPreference(Long customerId, String preferenceType) {
+
+<span class="fc" id="L121">		Optional&lt;TgCustomerPreference&gt; preferenceEntity = customerPreferenceRepository</span>
+<span class="fc" id="L122">				.findByCustomerIdAndPreferenceType(customerId, preferenceType.toLowerCase());</span>
+<span class="fc bfc" id="L123" title="All 2 branches covered.">		if (preferenceEntity.isPresent()) {</span>
+<span class="fc" id="L124">			customerPreferenceRepository.delete(preferenceEntity.get());</span>
+<span class="fc" id="L125">			log.info(&quot;Successfully deleted preference in database&quot;);</span>
+<span class="fc" id="L126">			return true;</span>
+		}
+
+<span class="fc" id="L129">		log.error(&quot;Could not find preference of type - {}, for user - {}&quot;, preferenceType, customerId);</span>
+<span class="fc" id="L130">		throw new PreferenceNotFoundException(&quot;Preference of given type not found&quot;);</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
