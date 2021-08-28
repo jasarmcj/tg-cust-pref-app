@@ -34,23 +34,27 @@ Code Setup and Execution
 	$_mvn clean install 
 	
 	**Running tg-cust-pref-store from terminal on port 4377**  
+--------------------------------------------------------------  
 1.	Go to location /tg-cust-pref-store/target   
 2.	Run command$ _java -jar tg-cust-pref-store-1.0.jar_    
 
 	**Running tg-cust-pref-retriever from terminal on port 4378**   
+------------------------------------------------------------------  
 1.	Go to location /tg-cust-pref-retriever/target  
 2.	Run command$ _java -jar tg-cust-pref-retriever-1.0.jar_   
 	
 	**Running tg-cust-pref-store on docker container on port 4377**   
+------------------------------------------------------------------  
 1.	Build image using $ _docker build -build-arg JAR_FILE=target/*.jar -t tg-cust-pref-store ._   
 2	Start the container on port 4377 $ _docker run -p 4377:4377 -t tg-cust-pref-store_  
 
 	**Running tg-cust-pref-retriever on docker container on port 4378**  
+-----------------------------------------------------------------------  
 1.	Build image using $ _docker build -build-arg JAR_FILE=target/*.jar -t tg-cust-pref-retriever ._   
 2	Start the container on port 4378 $ _docker run -p 4378:4378 -t tg-cust-pref-retriever_   
 	
 	**If using eclipse, import the projects to eclipse and run the /tg-cust-pref-app/pom.xml file.**  
-	
+-----------------------------------------------------------------------------------------------------  	
 1.  The code coverage report is available in the target folders. /tg-cust-pref-store/target/site/jacoco/index.html, /tg-cust-pref-retriever/target/site/jacoco/index.html	
 2.	For running tg-cust-pref-store, execute TgCustPrefStoreApplication.java. Application will start on port 4377 and context path /tg-cust-pref-store.  
 3.	For running tg-cust-pref-retriever, execute TgCustPrefRetrieverApplication.java. Application will start on port 4378 and context path /tg-cust-pref-retriever.  
