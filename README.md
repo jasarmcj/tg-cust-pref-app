@@ -4,7 +4,6 @@ Customer Preference Application
 The Customer Preference application is developed as two micoservices - tg-cust-pref-store and tg-cust-pref-retriever. The microservies are developed using Spring Boot.  
 In-memory H2 database is used for storing data. The database and objects are created when starting the application. 
 The retriver microservice communicates with the store microservice using feign clients.  
-Note: In the retriever microservice, junit tests are implemented in controller level with actual spring environment for testing the application end to end. So for running this tests the store microservice must be started.
 
 The application is designed and developed by considering below points  
 
@@ -92,8 +91,10 @@ JUnit Test Classes for tg-cust-pref-store
 JUnit Test Classes for tg-cust-pref-retriever 
 ------------------------------------------ 
 1.  CustomerPrefRetrieverControllerTest  
+1.  CustomerPrefRetrieverServiceTest 
 
 
+Note: In the retriever microservice, CustomerPrefRetrieverControllerTest is used for testing the application end to end. So for running this, the store microservice must be started on port 4377.
 
 
 
