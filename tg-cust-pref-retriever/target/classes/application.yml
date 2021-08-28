@@ -1,0 +1,21 @@
+server:
+  port: 4378
+  servlet:
+    context-path: /tg-cust-pref-retriever
+   
+custPrefStore:
+  baseurl: http://localhost:4377/tg-cust-pref-store
+  preferences: /customers/{customerId}/preferences
+  preferencesByType: /customers/{customerId}/preferences/{preferenceType}
+        
+logging:
+  level:
+    com.tg.cust.pref.retriever.feign.client.CustomerPrefRetrieverClient: DEBUG
+    
+feign:
+  client:
+    config:
+      default:
+        errorDecoder: com.tg.cust.pref.retriever.feign.config.CustomerPrefStoreClientErrorDecoder
+        loggerLevel: FULL
+        

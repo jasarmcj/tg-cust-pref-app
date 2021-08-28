@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.tg.cust.pref.retriever.service.CustomerPrefRetrieverServiceTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.227 s - in com.tg.cust.pref.retriever.service.CustomerPrefRetrieverServiceTest
