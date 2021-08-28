@@ -1,0 +1,171 @@
+{
+	"info": {
+		"_postman_id": "aa3e7c59-b954-4672-978f-e66a07425495",
+		"name": "TGStore",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Preferences",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"optIn\": true,\r\n        \"preferenceType\": \"email\"\r\n    },\r\n    {\r\n        \"optIn\": true,\r\n        \"preferenceType\": \"post\"\r\n    },\r\n    {\r\n        \"optIn\": true,\r\n        \"preferenceType\": \"sms\"\r\n    }\r\n]"
+				},
+				"url": {
+					"raw": "http://localhost:4377/tg-cust-pref-store/customers/100/preferences",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4377",
+					"path": [
+						"tg-cust-pref-store",
+						"customers",
+						"100",
+						"preferences"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Preference by type",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"optIn\": false\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4377/tg-cust-pref-store/customers/100/preferences/email",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4377",
+					"path": [
+						"tg-cust-pref-store",
+						"customers",
+						"100",
+						"preferences",
+						"email"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get  Preferences",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4377/tg-cust-pref-store/customers/100/preferences",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4377",
+					"path": [
+						"tg-cust-pref-store",
+						"customers",
+						"100",
+						"preferences"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get  preferences by type",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"optIn\": true,\r\n        \"preferenceType\": \"email\"\r\n    },\r\n    {\r\n        \"optIn\": true,\r\n        \"preferenceType\": \"post\"\r\n    },\r\n    {\r\n        \"optIn\": true,\r\n        \"preferenceType\": \"sms\"\r\n    }\r\n]"
+				},
+				"url": {
+					"raw": "http://localhost:4377/tg-cust-pref-store/customers/100/preferences/email",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4377",
+					"path": [
+						"tg-cust-pref-store",
+						"customers",
+						"100",
+						"preferences",
+						"email"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete  preferences by type",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"optIn\": true,\r\n        \"preferenceType\": \"email\"\r\n    },\r\n    {\r\n        \"optIn\": true,\r\n        \"preferenceType\": \"post\"\r\n    },\r\n    {\r\n        \"optIn\": true,\r\n        \"preferenceType\": \"sms\"\r\n    }\r\n]"
+				},
+				"url": {
+					"raw": "http://localhost:4377/tg-cust-pref-store/customers/100/preferences/email",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4377",
+					"path": [
+						"tg-cust-pref-store",
+						"customers",
+						"100",
+						"preferences",
+						"email"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

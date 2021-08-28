@@ -1,0 +1,73 @@
+{
+	"info": {
+		"_postman_id": "14ddd902-313e-434b-91e8-5b0fecaa0e5e",
+		"name": "TGRetriever",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get  Preferences",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4378/tg-cust-pref-retriever/customers/100/preferences",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4378",
+					"path": [
+						"tg-cust-pref-retriever",
+						"customers",
+						"100",
+						"preferences"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get  preferences by type",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"optIn\": true,\r\n        \"preferenceType\": \"email\"\r\n    },\r\n    {\r\n        \"optIn\": true,\r\n        \"preferenceType\": \"post\"\r\n    },\r\n    {\r\n        \"optIn\": true,\r\n        \"preferenceType\": \"sms\"\r\n    }\r\n]"
+				},
+				"url": {
+					"raw": "http://localhost:4378/tg-cust-pref-retriever/customers/100/preferences/email",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4378",
+					"path": [
+						"tg-cust-pref-retriever",
+						"customers",
+						"100",
+						"preferences",
+						"email"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
