@@ -32,7 +32,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-		</plugins> -->
+		</plugins>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -46,7 +46,7 @@
 					</excludes>
 				</configuration>
 			</plugin>
-		</plugins>
+		</plugins> -->
 	</build>
 
 </project>

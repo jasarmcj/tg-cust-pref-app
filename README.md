@@ -45,13 +45,13 @@ Code Setup and Execution
 	
 	**Running tg-cust-pref-store on docker container on port 4377**   
 ------------------------------------------------------------------  
-1.	Build image using $ _docker build --build-arg JAR_FILE=target/*.jar -t tg-cust-pref-store ._   
-2.	Start the container on port 4377 $ _docker run -p 4377:4377 -t tg-cust-pref-store_  
+1.	Build image using $ _docker build -t tg-cust-pref-store ._   
+2.	Start the container on port 4377 $ _docker run --network retriever-store --name tg-cust-pref-store -p 4377:4377 -t tg-cust-pref-store_  
 
 	**Running tg-cust-pref-retriever on docker container on port 4378**  
 -----------------------------------------------------------------------  
-1.	Build image using $ _docker build --build-arg JAR_FILE=target/*.jar -t tg-cust-pref-retriever ._   
-2.	Start the container on port 4378 $ _docker run -p 4378:4378 -t tg-cust-pref-retriever_   
+1.	Build image using $ _docker build -t tg-cust-pref-retriever ._   
+2.	Start the container on port 4378 $ _docker run --network retriever-store -p 4378:4378 -t tg-cust-pref-retriever_   
 	
 	**If using eclipse, import the projects to eclipse and run the /tg-cust-pref-app/pom.xml file.**  
 -----------------------------------------------------------------------------------------------------  	

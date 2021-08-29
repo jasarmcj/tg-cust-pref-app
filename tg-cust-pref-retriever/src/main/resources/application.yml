@@ -4,7 +4,7 @@ server:
     context-path: /tg-cust-pref-retriever
    
 custPrefStore:
-  baseurl: http://localhost:4377/tg-cust-pref-store
+  baseurl: http://tg-cust-pref-store:4377/tg-cust-pref-store
   preferences: /customers/{customerId}/preferences
   preferencesByType: /customers/{customerId}/preferences/{preferenceType}
         
