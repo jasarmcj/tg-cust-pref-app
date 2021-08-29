@@ -3,13 +3,13 @@ Customer Preference Application
 ======================================  
 The Customer Preference application is developed as two micoservices - tg-cust-pref-store and tg-cust-pref-retriever. The microservies are developed using Spring Boot.  
 In-memory H2 database is used for storing data. The database and objects are created when starting the application. 
-The retriver microservice communicates with the store microservice using feign clients.  
+The retriever microservice communicates with the store microservice using feign clients.  
 
 The application is designed and developed by considering below points  
 
 1.	Object oriented programming approach.  
 2.	Test driven development   
-3.	Simple and generic coding best practices and conventions  
+3.	Simple and generic coding best practices, conventions and solid principles  
 
 
 
